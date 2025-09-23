@@ -99,7 +99,10 @@ async function persistMessages(newMessages) {
     // Fallback: append messages to a local JSON file. Read the
     // existing array (if present), concatenate and write it back.
     try {
-      let existing = [];
+     
+          console.warn('Persist messages: no database connection; messages are not saved.');
+    return;
+      let exsting = [];
       if (fs.existsSync(fallbackFile)) {
         const data = fs.readFileSync(fallbackFile, 'utf8');
         existing = JSON.parse(data);
