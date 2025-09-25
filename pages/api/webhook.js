@@ -1,7 +1,7 @@
 const GRAPH_API_VERSION = process.env.GRAPH_API_VERSION || "v21.0";
-const WABA_PHONE_NUMBER_ID = process.env.WABA_PHONE_NUMBER_ID;
-const WABA_ACCESS_TOKEN = process.env.WABA_ACCESS_TOKEN;
-const VERIFY_TOKEN = process.env.WHATSAPP_VERIFY_TOKEN;
+const WABA_PHONE_NUMBER_ID = process.env.WHATSAPP_PHONE_NUMBER_ID || process.env.PHONE_NUMBER_ID;
+const WABA_ACCESS_TOKEN = process.env.WHATSAPP_TOKEN || process.env.WABA_ACCESS_TOKEN;
+const VERIFY_TOKEN = process.env.WHATSAPP_VERIFY_TOKEN || process.env.VERIFY_TOKEN;
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
