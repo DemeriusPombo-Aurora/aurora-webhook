@@ -1,13 +1,10 @@
-/*
-  Middleware disabled to avoid unsupported modules in Vercel Edge environment.
-  Allows all requests to pass through without modification.
-*/
+import { NextResponse } from 'next/server';
 
 export const config = {
   matcher: ['/api/webhook'],
 };
 
 export default function middleware(req) {
-  // Return a simple response; Next.js will continue handling the request.
-  return new Response(null, { status: 200 });
+  // Allow requests to pass through to API route
+  return NextResponse.next();
 }
