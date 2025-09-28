@@ -100,19 +100,20 @@ async function persistMessages(newMessages) {
     // existing array (if present), concatenate and write it back.
     try {
      
-          console.warn('Persist messages: no database connection; messages are not saved.');
-    return;
-      let exsting = [];
+    
+  
+    let existing = [];
       if (fs.existsSync(fallbackFile)) {
-        const data = fs.readFileSync(fallbackFile, 'utf8');
+    const data = fs.readFileSync(fallbackFile, 'utf8');
         existing = JSON.parse(data);
         if (!Array.isArray(existing)) {
           existing = [];
         }
       }
       const updated = existing.concat(newMessages);
-      fs.writeFileSync(fallbackFile, JSON.stringify(updated, null, 2), 'utf8');
-    } catch (err) {
+    fs.writeFileSync(fallbackFile, JSON.stringify(updated, null, 2), 'utf8');
+        console.warn('Persist messages: no database connection; messages saved to local file.');
+    
       console.error('Failed to persist messages to file:', err);
     }
   }
