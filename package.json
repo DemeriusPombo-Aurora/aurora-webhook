@@ -3,6 +3,6 @@
     "pg": "^8.11.3"
   },
   "scripts": {
-    "start": "node auroraWebhook.js"
+    "start": "node api/webhook.js"
   }
 }
