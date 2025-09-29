@@ -9,9 +9,10 @@ const { persistMessages } = require('../db');
 
 // Verification token used for webhook handshake
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN || 'CHANGE_ME';
-// Meta WhatsApp Cloud API credentials
-const META_PHONE_NUMBER_ID = process.env.META_PHONE_NUMBER_ID;
-const META_WABA_TOKEN = process.env.META_WABA_TOKEN;
+// WhatsApp Cloud API credentials
+const PHONE_NUMBER_ID = process.env.PHONE_NUMBER_ID;
+const WHATSAPP_TOKEN = process.env.WHATSAPP_TOKEN;
+const WHATSAPP_API_VERSION = process.env.WHATSAPP_API_VERSION || 'v20.0';
 
 /**
  * Send a text message via WhatsApp Cloud API.
@@ -19,7 +20,7 @@ const META_WABA_TOKEN = process.env.META_WABA_TOKEN;
  * @param {string} text - the text body
  */
 async function sendText(to, text) {
-  const url = `https://graph.facebook.com/v20.0/${META_PHONE_NUMBER_ID}/messages`;
+const url = 'https://graph.facebook.com/' + WHATSAPP_API_VERSION + '/' + PHONE_NUMBER_ID + '/messages';
   const payload = {
     messaging_product: 'whatsapp',
     to,
@@ -29,10 +30,10 @@ async function sendText(to, text) {
   const response = await fetch(url, {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${META_WABA_TOKEN}`,
+Authorization: 'Bearer ' + WHATSAPP_TOKEN,
       'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
+ },  
+  body: JSON.stringify(payload),
   });
   if (!response.ok) {
     let errorData;
