@@ -101,9 +101,17 @@ async function persistMessages(newMessages) {
     try {
       let existing = [];
       if (fs.existsSync(fallbackFile)) {
-        const data = fs.readFileSync(fallbackFile, 'utf8');
-        existing = JSON.parse(data);
-        if (!Array.isArray(existing)) {
+        try {
+          const data = fs.readFileSync(fallbackFile, 'utf8');
+          const parsed = JSON.parse(data);
+          if (Array.isArray(parsed)) {
+            existing = parsed;
+          }
+        } catch (fileErr) {
+          console.warn(
+            'Persist messages: failed to read existing fallback file, starting fresh.',
+            fileErr
+          );
           existing = [];
         }
       }
